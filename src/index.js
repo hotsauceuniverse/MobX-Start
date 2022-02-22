@@ -3,6 +3,39 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {autorun, makeObservable, observable} from 'mobx'
+
+
+const isLogin = observable(true);
+
+const person = observable({
+  name: 'Seyoung',
+  age: 28,
+});
+
+class PersonStore {
+  @observable
+  name= "Jang Seyoung";
+
+  @observable
+  age = 29;
+
+  constructor() {
+    makeObservable(this);
+  }
+}
+
+const personStore = new PersonStore();
+
+autorun(() => {
+  console.log(isLogin.get());
+  console.log(person.age);
+  console.log(personStore.age);
+});
+
+isLogin.set(false);
+person.age = 30;
+personStore.age = 31;
 
 ReactDOM.render(
   <React.StrictMode>
